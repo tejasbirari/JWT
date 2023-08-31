@@ -28,7 +28,9 @@ const authenticateToken = (req, res, next) => {
         });
     } catch (error) {
         // if token is expired, generate new token using refreshToken
-        // if()
+        if(!refreshToken){
+            return res.status(401).json({ message: 'Access denied. Token missing.' });
+        }
         console.log(error);
     }
 
