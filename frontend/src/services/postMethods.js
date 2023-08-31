@@ -22,12 +22,26 @@ export const authentication = async(email, password) => {
             email,
             password
         });
-        const token = response.data.token;
+        const token = response.data.accessToken;
         localStorage.setItem('TOKEN', token);
         console.log(response.status);
         return response.status;
     } catch (error) {
         console.log("Error while sending authentication details", error);
         return(error.response.status);
+    }
+}
+
+export const getProducts = async() => {
+    try {
+        const accessToken = localStorage.getItem('TOKEN');
+        const response = await axios.get(`${BASE_URL}/auth/products`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        return response.data.message
+    } catch (error) {
+        console.log("Error while fetching products", error);
     }
 }

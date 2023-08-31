@@ -4,6 +4,8 @@ import Card from "./components/Card";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import Protected from "./services/Protected";
+import Products from "./pages/Products";
 
 function App() {
   return (
@@ -12,7 +14,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={ <Card /> } />
-        <Route path="/home" element={ <HomePage /> } />
+        <Route path="/home" element={ <Protected><HomePage /></Protected> } />
+        <Route path="/products" element={ <Protected><Products /></Protected> } />
       </Routes>
 
       </BrowserRouter>

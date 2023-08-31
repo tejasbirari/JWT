@@ -21,12 +21,23 @@ const authentication = async(req, res) => {
             return res.status(401).json({ message:"Invalid password" });
         }
 
-        // Assign JWT Token, if all details are okay
-        const token = jwt.sign({email: existingUser.email}, process.env.SECRET_KEY, {
-            expiresIn: '1800s',
+        // Assign Access Token, if all details are okay
+        const accessToken = jwt.sign({email: existingUser.email}, process.env.ACCESS_TOKEN_SECRET_KEY, {
+            expiresIn: '1000s',
         });
 
-        return res.status(200).json({ message: "Authentication successful", token });
+        //Assign Refresh Token
+        const refreshToken = jwt.sign({email: existingUser.email}, process.env.REFRESH_TOKEN_SECRET_KEY, {
+            expiresIn: '7000s',
+        });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            SameSite: "None",
+            secure: true
+        })
+
+        return res.status(200) .json({ message: "Authentication successful", accessToken });
 
     } catch (error) {
         console.log("Authentication Error: ", error);
