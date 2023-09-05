@@ -12,6 +12,7 @@ const PRODUCT_ROUTE = require('./routes/productRoutes');
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+
 app.use('/auth/create-account', USER_ROUTE);
 app.use('/auth/login', AUTH_ROUTE);
 app.use('/auth/products', PRODUCT_ROUTE);

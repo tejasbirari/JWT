@@ -33,8 +33,10 @@ const authentication = async(req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            SameSite: "None",
-            secure: true
+            sameSite: "None",
+            secure: true,
+            path: '/',
+            maxAge: 3600000000,
         })
 
         return res.status(200) .json({ message: "Authentication successful", accessToken });

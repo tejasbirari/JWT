@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
     const authorizationHeader = req.header('Authorization');
-    const refreshToken = req.cookies;
+    const refreshToken = res.header('Set-Cookie');
 
     console.log(refreshToken);
 
